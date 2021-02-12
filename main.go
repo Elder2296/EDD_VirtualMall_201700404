@@ -7,10 +7,12 @@ import (
 	"log"
 	"net/http" // para utilizar respuestas y peticiones al servidor
 
-	"github.com/gorilla/mux" // para crear un enrutador
+	saludar "github.com/Elder2296/EDD_VirtualMall_201700404/Saludar"
+	"github.com/gorilla/mux"
+	// para crear un enrutador
 )
 
-type store struct {
+/*type store struct {
 	Nombre       string `json:Nombre`
 	Descripcion  string `json:Descripcion`
 	Contacto     string `json:Contacto`
@@ -28,7 +30,7 @@ type Data struct {
 }
 type Sobre struct {
 	Datos []Data `json:Datos`
-}
+}*/
 
 func rutainit(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Raiz de la rutas masacres")
@@ -37,9 +39,10 @@ func rutainit(w http.ResponseWriter, r *http.Request) {
 
 func createData(w http.ResponseWriter, r *http.Request) {
 	reqBody, _ := ioutil.ReadAll(r.Body)
-	var data Sobre
+	var data saludar.Sobre
 
 	json.Unmarshal(reqBody, &data)
+
 	fmt.Println(data)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
@@ -48,15 +51,12 @@ func createData(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+
 	router := mux.NewRouter().StrictSlash(true)
 	// def of routes
 	router.HandleFunc("/", rutainit).Methods("GET")
 
 	router.HandleFunc("/cargartienda", createData).Methods("POST")
-	router.HandleFunc("/Human", createHuman).Methods("POST")
-
-	//crear un servidor http
-	//http.ListenAndServer(":3000", router)
 
 	log.Fatal(http.ListenAndServe(":3000", router))
 
