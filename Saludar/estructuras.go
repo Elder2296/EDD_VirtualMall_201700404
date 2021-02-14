@@ -2,8 +2,6 @@ package Saludar
 
 import (
 	"fmt"
-
-	"github.com/Elder2296/EDD_VirtualMall_201700404/ListaD"
 )
 
 type Store struct {
@@ -30,7 +28,7 @@ type Casilla struct {
 	Indice       string
 	Categoria    string
 	Calificacion int
-	listatiendas ListaD.ListaDoble
+	listatiendas ListaDoble
 }
 
 func WorkData(datos *Sobre) {
@@ -41,7 +39,6 @@ func WorkData(datos *Sobre) {
 	celdas := make([]Casilla, tam)
 	fmt.Println("tamanio de celdas ", len(celdas))
 
-	c := 0
 	//fmt.Println("cuantas indices viene: ", len(datos.Datos))
 	for i := 0; i < nfil; i++ {
 		//fmt.Println(dato.Indice)
@@ -54,13 +51,32 @@ func WorkData(datos *Sobre) {
 			}*/
 
 			for k := 0; k < 5; k++ {
-				/*celdas[i+nfil*(j+ncol*k)].Indice = datos.Datos[i].Indice
-				fmt.Println(celdas[i+nfil*(j+ncol*k)].Indice)*/
-				c++
-				fmt.Println("No. de vuelta: ", c)
+				celdas[i+nfil*(j+ncol*k)].Indice = datos.Datos[i].Indice
+				celdas[i+nfil*(j+ncol*k)].Categoria = datos.Datos[i].Departamentos[j].Nombre
+				celdas[i+nfil*(j+ncol*k)].Calificacion = k + 1
+				lista := NewList()
+
+				for m := 0; m < len(datos.Datos[i].Departamentos[j].Tiendas); m++ {
+
+					if celdas[i+nfil*(j+ncol*k)].Calificacion == datos.Datos[i].Departamentos[j].Tiendas[m].Calificacion {
+						lista.Insert(datos.Datos[i].Departamentos[j].Tiendas[m])
+					}
+
+				}
+
+				celdas[i+nfil*(j+ncol*k)].listatiendas = *lista
+
 			}
 
 		}
+	}
+
+	for _, dato := range celdas {
+
+		fmt.Println("Indice: ", dato.Indice, " departamento: ", dato.Categoria, " calificacion ", dato.Calificacion)
+		fmt.Println("tiendas: ")
+		dato.listatiendas.Print()
+
 	}
 
 	//fmt.Println("tamaño de linealizacion: ", len(celdas))
