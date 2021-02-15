@@ -1,9 +1,12 @@
 package Saludar
 
-import (
-	"fmt"
-)
+import "fmt"
 
+type Peticion struct {
+	Departamento string `json:Departamento`
+	Nombre       string `json:Nombre`
+	Calificacion int    `json:Calificacion`
+}
 type Store struct {
 	Nombre       string `json:Nombre`
 	Descripcion  string `json:Descripcion`
@@ -25,19 +28,22 @@ type Sobre struct {
 }
 
 type Casilla struct {
-	Indice       string
-	Categoria    string
-	Calificacion int
+	Indice       string `json: Indice`
+	Categoria    string `json:Categoria`
+	Calificacion int    `json:Calificacion`
 	listatiendas ListaDoble
 }
+
+var Cel *[]Casilla
 
 func WorkData(datos *Sobre) {
 
 	nfil := len(datos.Datos)
 	ncol := len(datos.Datos[0].Departamentos)
 	tam := nfil * ncol * 5
-	celdas := make([]Casilla, tam)
-	fmt.Println("tamanio de celdas ", len(celdas))
+
+	Celdas := make([]Casilla, tam)
+	//fmt.Println("tamanio de celdas ", len(celdas))
 
 	//fmt.Println("cuantas indices viene: ", len(datos.Datos))
 	for i := 0; i < nfil; i++ {
@@ -51,33 +57,62 @@ func WorkData(datos *Sobre) {
 			}*/
 
 			for k := 0; k < 5; k++ {
-				celdas[i+nfil*(j+ncol*k)].Indice = datos.Datos[i].Indice
-				celdas[i+nfil*(j+ncol*k)].Categoria = datos.Datos[i].Departamentos[j].Nombre
-				celdas[i+nfil*(j+ncol*k)].Calificacion = k + 1
+				Celdas[i+nfil*(j+ncol*k)].Indice = datos.Datos[i].Indice
+				Celdas[i+nfil*(j+ncol*k)].Categoria = datos.Datos[i].Departamentos[j].Nombre
+				Celdas[i+nfil*(j+ncol*k)].Calificacion = k + 1
 				lista := NewList()
 
 				for m := 0; m < len(datos.Datos[i].Departamentos[j].Tiendas); m++ {
 
-					if celdas[i+nfil*(j+ncol*k)].Calificacion == datos.Datos[i].Departamentos[j].Tiendas[m].Calificacion {
+					if Celdas[i+nfil*(j+ncol*k)].Calificacion == datos.Datos[i].Departamentos[j].Tiendas[m].Calificacion {
 						lista.Insert(datos.Datos[i].Departamentos[j].Tiendas[m])
 					}
 
 				}
 
-				celdas[i+nfil*(j+ncol*k)].listatiendas = *lista
+				Celdas[i+nfil*(j+ncol*k)].listatiendas = *lista
 
 			}
 
 		}
 	}
+	Cel = &Celdas
 
-	for _, dato := range celdas {
+	/*for _, dato := range Celdas {
 
 		fmt.Println("Indice: ", dato.Indice, " departamento: ", dato.Categoria, " calificacion ", dato.Calificacion)
 		fmt.Println("tiendas: ")
 		dato.listatiendas.Print()
 
+	}*/
+
+	fmt.Println("se agregaron los datos")
+
+}
+
+var Tienda Store
+
+func GetData(peticion Peticion) Store {
+
+	/*fmt.Println("Departamento: ", peticion.Departamento)
+	fmt.Println("Nombre: ", peticion.Nombre)
+	fmt.Println("Calificacion: ", peticion.Calificacion)*/
+
+	for _, dato := range *Cel {
+
+		if dato.Categoria == peticion.Departamento && dato.Calificacion == peticion.Calificacion {
+			if dato.listatiendas.Encontro(peticion.Nombre) == 1 {
+				Tienda = dato.listatiendas.GetTienda(peticion.Nombre)
+				break
+			}
+		}
+
+		/*fmt.Println("Indice: ", dato.Indice, " departamento: ", dato.Categoria, " calificacion ", dato.Calificacion)
+		fmt.Println("tiendas: ")
+		dato.listatiendas.Print()*/
+
 	}
 
-	//fmt.Println("tamaño de linealizacion: ", len(celdas))
+	return Tienda
+
 }

@@ -46,3 +46,30 @@ func (this *ListaDoble) Print() {
 	}
 	//fmt.Println("Terminos en la lista: ", this.size)
 }
+func (this *ListaDoble) Encontro(name string) int { // solo dice si hay una coincidencia
+
+	aux := this.cabeza
+	Encontro := 0
+	for aux != nil {
+
+		if aux.store.Nombre == name {
+			Encontro = 1
+			break
+		} else {
+			aux = aux.next
+		}
+	}
+	return Encontro
+}
+
+func (this *ListaDoble) GetTienda(name string) Store {
+	aux := this.cabeza
+	for aux != nil {
+		if aux.store.Nombre == name {
+			break
+		} else {
+			aux = aux.next
+		}
+	}
+	return aux.store
+}

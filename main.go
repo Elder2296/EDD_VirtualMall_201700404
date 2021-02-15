@@ -37,6 +37,20 @@ func createData(w http.ResponseWriter, r *http.Request) {
 
 }
 
+var Tienda saludar.Store
+
+func getTienda(w http.ResponseWriter, r *http.Request) {
+	reqBody, _ := ioutil.ReadAll(r.Body)
+	var peti saludar.Peticion
+	json.Unmarshal(reqBody, &peti)
+
+	Tienda = saludar.GetData(peti)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(Tienda)
+
+}
+
 func main() {
 
 	router := mux.NewRouter().StrictSlash(true)
@@ -44,6 +58,7 @@ func main() {
 	router.HandleFunc("/", rutainit).Methods("GET")
 
 	router.HandleFunc("/cargartienda", createData).Methods("POST")
+	router.HandleFunc("/TiendaEspecifica", getTienda).Methods("GET")
 	//router.HandleFunc("/getArreglo", getArray).Methods("GET")//REPORTE DE GRAPHVIZ
 
 	log.Fatal(http.ListenAndServe(":3000", router))
