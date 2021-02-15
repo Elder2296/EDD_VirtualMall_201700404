@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http" // para utilizar respuestas y peticiones al servidor
+	"strconv"
 
 	saludar "github.com/Elder2296/EDD_VirtualMall_201700404/Saludar"
 	"github.com/gorilla/mux"
@@ -51,6 +52,25 @@ func getTienda(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func getPosicion(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	index, _ := strconv.Atoi(vars["numero"])
+
+	if saludar.TestIndex(index) == 0 {
+		mensaje := "no hay registro de tiendas en dicho indice"
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(mensaje)
+
+	} else {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(saludar.GetArrayStore(index))
+
+	}
+
+}
+
 func main() {
 
 	router := mux.NewRouter().StrictSlash(true)
@@ -59,6 +79,7 @@ func main() {
 
 	router.HandleFunc("/cargartienda", createData).Methods("POST")
 	router.HandleFunc("/TiendaEspecifica", getTienda).Methods("GET")
+	router.HandleFunc("/id/{numero}", getPosicion).Methods("GET")
 	//router.HandleFunc("/getArreglo", getArray).Methods("GET")//REPORTE DE GRAPHVIZ
 
 	log.Fatal(http.ListenAndServe(":3000", router))

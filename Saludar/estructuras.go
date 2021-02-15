@@ -116,3 +116,35 @@ func GetData(peticion Peticion) Store {
 	return Tienda
 
 }
+
+var hay int
+
+func TestIndex(indice int) int {
+	hay = 0
+	c := 0
+	for _, dato := range *Cel {
+
+		c++
+		if c == indice {
+			if dato.listatiendas.size != 0 {
+				hay = 1
+
+			}
+
+		}
+	}
+	return hay
+
+}
+func GetArrayStore(indice int) []Store {
+	c := 0
+	for _, dato := range *Cel {
+		c++
+		if c == indice {
+			return dato.listatiendas.GetArray()
+		}
+
+	}
+	return nil
+
+}

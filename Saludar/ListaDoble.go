@@ -73,3 +73,17 @@ func (this *ListaDoble) GetTienda(name string) Store {
 	}
 	return aux.store
 }
+func (this *ListaDoble) GetArray() []Store {
+
+	array := make([]Store, this.size)
+	pos := 0
+	aux := this.cabeza
+	for aux != nil {
+		array[pos] = aux.store
+		aux = aux.next
+		pos++
+
+	}
+	return array
+
+}
