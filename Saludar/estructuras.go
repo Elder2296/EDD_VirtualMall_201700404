@@ -80,13 +80,13 @@ func WorkData(datos *Sobre) {
 
 	/*for _, dato := range Celdas {
 
-		fmt.Println("Indice: ", dato.Indice, " departamento: ", dato.Categoria, " calificacion ", dato.Calificacion)
+		fmt.Println(" departamento: ", dato.Categoria, " calificacion ", dato.Calificacion)
 		fmt.Println("tiendas: ")
 		dato.listatiendas.Print()
 
 	}*/
 
-	fmt.Println("se agregaron los datos")
+	fmt.Println("SE AGREGARON LOS DATOS")
 
 }
 
@@ -147,4 +147,79 @@ func GetArrayStore(indice int) []Store {
 	}
 	return nil
 
+}
+
+var t int
+
+func DeleteStore(peticion Peticion) int {
+	t := 0
+	Celdas2 := make([]Casilla, len(*Cel))
+	//fmt.Println("nombre de tienda a eliminar:  ", peticion.Nombre)
+	c := 0
+
+	for _, dato := range *Cel {
+
+		if dato.Categoria == peticion.Departamento && dato.Calificacion == peticion.Calificacion && dato.listatiendas.size != 0 {
+			/*r++
+			fmt.Println(" valor de encontrado: ", r)*/
+
+			//dato.listatiendas.Print()
+			//fmt.Println(" valor de encontrado en la lista: ", dato.listatiendas.EncontrarTienda(peticion.Nombre))
+			if dato.listatiendas.EncontrarTienda(peticion.Nombre) == 1 {
+				t = dato.listatiendas.DeleteStore(peticion.Nombre)
+				fmt.Println("Eliminacion correcta")
+				dato.listatiendas.Print()
+
+			}
+
+			/*{
+				t = dato.listatiendas.DeleteStore(peticion.Nombre)
+				break
+			}*/
+
+		}
+		Celdas2[c] = dato
+		c++
+
+	}
+	Cel = &Celdas2
+
+	/*for _, dato := range *Cel {
+
+	if dato.Categoria == peticion.Departamento && dato.Calificacion == peticion.Calificacion && dato.listatiendas.size != 0 {
+		/*r++
+		fmt.Println(" valor de encontrado: ", r)*/
+
+	//dato.listatiendas.Print()
+	//fmt.Println(" valor de encontrado en la lista: ", dato.listatiendas.EncontrarTienda(peticion.Nombre))
+	/*if dato.listatiendas.EncontrarTienda(peticion.Nombre) == 1 {
+		t = dato.listatiendas.DeleteStore(peticion.Nombre)
+		fmt.Println("Eliminacion correcta")
+		dato.listatiendas.Print()
+		*Cel = dato
+		break
+
+	}*/
+
+	/*{
+				t = dato.listatiendas.DeleteStore(peticion.Nombre)
+				break
+			}
+
+		}
+		c++
+
+	}*/
+	Imprimir()
+	return t
+}
+
+func Imprimir() {
+	for _, dato := range *Cel {
+
+		fmt.Println(" departamento: ", dato.Categoria, " calificacion ", dato.Calificacion)
+		fmt.Println("tiendas: ")
+		dato.listatiendas.Print()
+
+	}
 }

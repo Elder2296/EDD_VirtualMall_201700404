@@ -73,6 +73,27 @@ func (this *ListaDoble) GetTienda(name string) Store {
 	}
 	return aux.store
 }
+
+var r int
+
+func (this *ListaDoble) EncontrarTienda(nombre string) int {
+	r = 0
+	aux := this.cabeza
+
+	if aux != nil {
+		for aux != nil {
+			if aux.store.Nombre == nombre {
+				r = 1
+				break
+			} else {
+				aux = aux.next
+			}
+		}
+
+	}
+
+	return r
+}
 func (this *ListaDoble) GetArray() []Store {
 
 	array := make([]Store, this.size)
@@ -86,4 +107,43 @@ func (this *ListaDoble) GetArray() []Store {
 	}
 	return array
 
+}
+
+var cumplio int
+
+func (this *ListaDoble) DeleteStore(nombre string) int {
+	aux := this.cabeza
+	cumplio = 0
+
+	if this.size == 1 {
+		this.cabeza = nil
+		this.size--
+		cumplio = 1
+	} else {
+
+		if this.cabeza.store.Nombre == nombre {
+			this.cabeza = aux.next
+			this.cabeza.back = nil
+			cumplio = 1
+			this.size--
+
+		} else {
+			for aux != nil {
+
+				if aux.store.Nombre == nombre {
+					temp := aux.back
+					temp.next = aux.next
+					cumplio = 1
+					this.size--
+					break
+
+				}
+				aux = aux.next
+			}
+
+		}
+
+	}
+
+	return cumplio
 }
