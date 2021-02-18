@@ -96,6 +96,20 @@ func deleteStore(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+func saveFile(w http.ResponseWriter, r *http.Request) {
+
+	arreglo, _ := json.Marshal(saludar.Save())
+
+	err := ioutil.WriteFile("salida.json", arreglo, 0644)
+
+	if err != nil {
+		log.Fatal(err)
+
+	} else {
+		json.NewEncoder(w).Encode("Se ha guardado exitosamente")
+	}
+
+}
 
 func main() {
 
@@ -106,7 +120,9 @@ func main() {
 	router.HandleFunc("/cargartienda", createData).Methods("POST")
 	router.HandleFunc("/TiendaEspecifica", getTienda).Methods("GET")
 	router.HandleFunc("/id/{numero}", getPosicion).Methods("GET")
-	router.HandleFunc("/Eliminar", deleteStore).Methods("GET")
+	router.HandleFunc("/Eliminar", deleteStore).Methods("DELETE")
+	router.HandleFunc("/guardar", saveFile).Methods("GET")
+
 	//router.HandleFunc("/getArreglo", getArray).Methods("GET")//REPORTE DE GRAPHVIZ
 
 	log.Fatal(http.ListenAndServe(":3000", router))

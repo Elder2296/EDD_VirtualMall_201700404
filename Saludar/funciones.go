@@ -1,42 +1,17 @@
 package Saludar
 
-type Peticion struct {
-	Departamento string `json:Departamento`
-	Nombre       string `json:Nombre`
-	Calificacion int    `json:Calificacion`
-}
-type Store struct {
-	Nombre       string `json:Nombre`
-	Descripcion  string `json:Descripcion`
-	Contacto     string `json.Contacto`
-	Calificacion int    `json.Calificacion`
-}
+import "fmt"
 
-type Departament struct {
-	Nombre  string  `json:Nombre`
-	Tiendas []Store `json:Tiendas`
-}
-
-type Data struct {
-	Indice        string        `json:Indice`
-	Departamentos []Departament `json:Departamentos`
-}
-type Sobre struct {
-	Datos []Data `json: Datos`
-}
-
-type Casilla struct {
-	Indice       string `json: Indice`
-	Categoria    string `json:Categoria`
-	Calificacion int    `json:Calificacion`
-	listatiendas ListaDoble
-}
-
-/*
 var Cel *[]Casilla
+var bdata *Sobre
+
+func Save() *Sobre {
+	return bdata
+
+}
 
 func WorkData(datos *Sobre) {
-
+	bdata = datos
 	nfil := len(datos.Datos)
 	ncol := len(datos.Datos[0].Departamentos)
 	tam := nfil * ncol * 5
@@ -163,4 +138,3 @@ func Imprimir() {
 
 	}
 }
-*/
