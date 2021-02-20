@@ -147,3 +147,18 @@ func (this *ListaDoble) DeleteStore(nombre string) int {
 
 	return cumplio
 }
+func (this *ListaDoble) conexiones() string {
+	aux := this.cabeza
+	salida := ""
+	for aux != nil {
+		if aux.next != nil {
+			salida += aux.store.Nombre + " -> " + aux.next.store.Nombre + "\n"
+			salida += aux.next.store.Nombre + " -> " + aux.store.Nombre + "\n"
+
+		}
+		aux = aux.next
+
+	}
+	return salida
+
+}

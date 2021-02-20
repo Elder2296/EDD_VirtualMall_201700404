@@ -1,6 +1,11 @@
 package Saludar
 
-import "fmt"
+import (
+	"fmt"
+	"io/ioutil"
+	"log"
+	"strconv"
+)
 
 var Cel *[]Casilla
 var bdata *Sobre
@@ -125,11 +130,73 @@ func DeleteStore(peticion Peticion) int {
 	}
 	Cel = &Celdas2
 
-	Imprimir()
+	//Imprimir()
 	return t
 }
 
-func Imprimir() {
+var direc string
+var tiendax, linea3 string
+
+func CreateFile() {
+	encabezado := "digraph reporte{\n rankdir=LR"
+	var arreglo, arreglo2, cabezas, conexion string
+	salto := "\n"
+	direc := ""
+
+	arreglo += encabezado + salto
+	c := 0
+	for _, dato := range *Cel {
+
+		linea := "node [shape=circle, style= filled, label= \""
+		cali := strconv.Itoa(dato.Calificacion)
+
+		linea += dato.Categoria + " " + dato.Indice + " " + cali + "\"]" + dato.Indice + cali + dato.Categoria + salto
+
+		if (c + 1) == len(*Cel) {
+			direc += dato.Indice + cali + dato.Categoria
+
+		} else {
+			direc += dato.Indice + cali + dato.Categoria + " -> "
+
+		}
+
+		if dato.listatiendas.size != 0 {
+
+			for i := 0; i < len(dato.listatiendas.GetArray()); i++ {
+				linea2 := "node [shape=box, style= filled, label= \""
+				linea2 += dato.listatiendas.GetArray()[i].Nombre + "\"]" + dato.listatiendas.GetArray()[i].Nombre + salto
+				arreglo2 += linea2
+
+			}
+
+			linea3 = dato.Indice + cali + dato.Categoria + " -> " + dato.listatiendas.cabeza.store.Nombre + salto
+			cabezas += linea3
+			conexion += dato.listatiendas.conexiones()
+
+		}
+
+		c++
+		arreglo += linea
+
+	}
+	arreglo += direc + salto
+	arreglo += arreglo2
+	arreglo += cabezas
+	arreglo += conexion
+	arreglo += salto + "}"
+	er := ioutil.WriteFile("prueba.dot", []byte(arreglo), 0644)
+
+	if er != nil {
+		log.Fatal(er)
+	} else {
+
+		fmt.Println("archivo creado con exito!!!")
+
+	}
+
+}
+
+/*func Imprimir() {
 	for _, dato := range *Cel {
 
 		fmt.Println(" departamento: ", dato.Categoria, " calificacion ", dato.Calificacion)
@@ -137,4 +204,4 @@ func Imprimir() {
 		dato.listatiendas.Print()
 
 	}
-}
+}*/

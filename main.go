@@ -110,6 +110,10 @@ func saveFile(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+func getArreglo(w http.ResponseWriter, r *http.Request) {
+	saludar.CreateFile()
+
+}
 
 func main() {
 
@@ -122,6 +126,7 @@ func main() {
 	router.HandleFunc("/id/{numero}", getPosicion).Methods("GET")
 	router.HandleFunc("/Eliminar", deleteStore).Methods("DELETE")
 	router.HandleFunc("/guardar", saveFile).Methods("GET")
+	router.HandleFunc("/getArreglo", getArreglo).Methods("GET")
 
 	//router.HandleFunc("/getArreglo", getArray).Methods("GET")//REPORTE DE GRAPHVIZ
 
@@ -148,5 +153,22 @@ func main() {
 	list.DeleteStore("tienda1")
 	fmt.Println()
 	list.Print()*/
+	//createfile()
+
+}
+
+func createfile() {
+	var cadena string
+	linea1 := "este es" + "\n"
+	linea2 := "un archivo" + "\n"
+	linea3 := "con multi" + "\n"
+	linea4 := "lineas" + "\n"
+	cadena = linea1 + linea2 + linea3 + linea4
+
+	er := ioutil.WriteFile("prueba.dot", []byte(cadena), 0644)
+
+	if er != nil {
+		log.Fatal(er)
+	}
 
 }

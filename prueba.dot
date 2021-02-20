@@ -1,0 +1,46 @@
+digraph reporte{
+ rankdir=LR
+node [shape=circle, style= filled, label= " Deportes A 1"]A1Deportes
+node [shape=circle, style= filled, label= " Deportes B 1"]B1Deportes
+node [shape=circle, style= filled, label= " Comida A 1"]A1Comida
+node [shape=circle, style= filled, label= " Comida B 1"]B1Comida
+node [shape=circle, style= filled, label= " celulares A 1"]A1celulares
+node [shape=circle, style= filled, label= " Celulares B 1"]B1Celulares
+node [shape=circle, style= filled, label= " Deportes A 2"]A2Deportes
+node [shape=circle, style= filled, label= " Deportes B 2"]B2Deportes
+node [shape=circle, style= filled, label= " Comida A 2"]A2Comida
+node [shape=circle, style= filled, label= " Comida B 2"]B2Comida
+node [shape=circle, style= filled, label= " celulares A 2"]A2celulares
+node [shape=circle, style= filled, label= " Celulares B 2"]B2Celulares
+node [shape=circle, style= filled, label= " Deportes A 3"]A3Deportes
+node [shape=circle, style= filled, label= " Deportes B 3"]B3Deportes
+node [shape=circle, style= filled, label= " Comida A 3"]A3Comida
+node [shape=circle, style= filled, label= " Comida B 3"]B3Comida
+node [shape=circle, style= filled, label= " celulares A 3"]A3celulares
+node [shape=circle, style= filled, label= " Celulares B 3"]B3Celulares
+node [shape=circle, style= filled, label= " Deportes A 4"]A4Deportes
+node [shape=circle, style= filled, label= " Deportes B 4"]B4Deportes
+node [shape=circle, style= filled, label= " Comida A 4"]A4Comida
+node [shape=circle, style= filled, label= " Comida B 4"]B4Comida
+node [shape=circle, style= filled, label= " celulares A 4"]A4celulares
+node [shape=circle, style= filled, label= " Celulares B 4"]B4Celulares
+node [shape=circle, style= filled, label= " Deportes A 5"]A5Deportes
+node [shape=circle, style= filled, label= " Deportes B 5"]B5Deportes
+node [shape=circle, style= filled, label= " Comida A 5"]A5Comida
+node [shape=circle, style= filled, label= " Comida B 5"]B5Comida
+node [shape=circle, style= filled, label= " celulares A 5"]A5celulares
+node [shape=circle, style= filled, label= " Celulares B 5"]B5Celulares
+A1Deportes -> B1Deportes -> A1Comida -> B1Comida -> A1celulares -> B1Celulares -> A2Deportes -> B2Deportes -> A2Comida -> B2Comida -> A2celulares -> B2Celulares -> A3Deportes -> B3Deportes -> A3Comida -> B3Comida -> A3celulares -> B3Celulares -> A4Deportes -> B4Deportes -> A4Comida -> B4Comida -> A4celulares -> B4Celulares -> A5Deportes -> B5Deportes -> A5Comida -> B5Comida -> A5celulares -> B5Celulares
+node [shape=box, style= filled, label= "Amador"]Amador
+node [shape=box, style= filled, label= "Armados"]Armados
+node [shape=box, style= filled, label= "Aurora"]Aurora
+node [shape=box, style= filled, label= "A comer todo"]A comer todo
+node [shape=box, style= filled, label= "Bayoneta"]Bayoneta
+A4Deportes -> Amador
+A5Deportes -> Armados
+A5Comida -> A comer todo
+B5Celulares -> Bayoneta
+Armados -> Aurora
+Aurora -> Armados
+
+}
