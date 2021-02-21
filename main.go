@@ -122,7 +122,7 @@ func main() {
 	router.HandleFunc("/", rutainit).Methods("GET")
 
 	router.HandleFunc("/cargartienda", createData).Methods("POST")
-	router.HandleFunc("/TiendaEspecifica", getTienda).Methods("GET")
+	router.HandleFunc("/TiendaEspecifica", getTienda).Methods("POST")
 	router.HandleFunc("/id/{numero}", getPosicion).Methods("GET")
 	router.HandleFunc("/Eliminar", deleteStore).Methods("DELETE")
 	router.HandleFunc("/guardar", saveFile).Methods("GET")

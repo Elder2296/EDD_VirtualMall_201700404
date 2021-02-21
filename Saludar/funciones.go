@@ -184,7 +184,7 @@ func CreateFile() {
 	arreglo += cabezas
 	arreglo += conexion
 	arreglo += salto + "}"
-	er := ioutil.WriteFile("prueba.dot", []byte(arreglo), 0644)
+	er := ioutil.WriteFile("grafico.dot", []byte(arreglo), 0644)
 
 	if er != nil {
 		log.Fatal(er)
