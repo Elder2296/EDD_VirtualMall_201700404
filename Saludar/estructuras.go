@@ -10,6 +10,7 @@ type Store struct {
 	Descripcion  string `json:Descripcion`
 	Contacto     string `json.Contacto`
 	Calificacion int    `json.Calificacion`
+	identi       string
 }
 
 type Departament struct {
@@ -30,6 +31,7 @@ type Casilla struct {
 	Categoria    string `json:Categoria`
 	Calificacion int    `json:Calificacion`
 	listatiendas ListaDoble
+	identi       string
 }
 
 /*
