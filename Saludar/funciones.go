@@ -24,6 +24,8 @@ func WorkData(datos *Sobre) {
 	cont := 1
 
 	Celdas := make([]Casilla, tam)
+	cont := 0
+	cont2 := 0
 
 	for i := 0; i < nfil; i++ {
 
@@ -35,16 +37,23 @@ func WorkData(datos *Sobre) {
 				Celdas[i+nfil*(j+ncol*k)].Categoria = datos.Datos[i].Departamentos[j].Nombre
 				Celdas[i+nfil*(j+ncol*k)].Calificacion = k + 1
 				Celdas[i+nfil*(j+ncol*k)].identi = "cas" + strconv.Itoa(cont)
+<<<<<<< HEAD
 				fmt.Println(" num " + strconv.Itoa(cont))
+=======
+
+>>>>>>> f6995de0ce741cd6d06e7adebe8c0a13f56ee604
 				lista := NewList()
 
 				for m := 0; m < len(datos.Datos[i].Departamentos[j].Tiendas); m++ {
 
 					if Celdas[i+nfil*(j+ncol*k)].Calificacion == datos.Datos[i].Departamentos[j].Tiendas[m].Calificacion {
+						datos.Datos[i].Departamentos[j].Tiendas[m].identi = "tie" + strconv.Itoa(cont2)
 						lista.Insert(datos.Datos[i].Departamentos[j].Tiendas[m])
+						cont2++
 					}
 
 				}
+				cont++
 
 				Celdas[i+nfil*(j+ncol*k)].listatiendas = *lista
 
@@ -158,11 +167,15 @@ func CreateFile() {
 		cali := strconv.Itoa(dato.Calificacion)
 
 		linea += dato.Categoria + " " + dato.Indice + " " + cali + "\"]" + dato.identi + salto
+<<<<<<< HEAD
+=======
+
+>>>>>>> f6995de0ce741cd6d06e7adebe8c0a13f56ee604
 		if (c + 1) == len(*Cel) {
-			direc += dato.Indice + cali + dato.Categoria
+			direc += dato.identi
 
 		} else {
-			direc += dato.Indice + cali + dato.Categoria + " -> "
+			direc += dato.identi + " -> "
 
 		}
 
@@ -170,12 +183,12 @@ func CreateFile() {
 
 			for i := 0; i < len(dato.listatiendas.GetArray()); i++ {
 				linea2 := "node [shape=box, style= filled, label= \""
-				linea2 += dato.listatiendas.GetArray()[i].Nombre + "\"]" + dato.listatiendas.GetArray()[i].Nombre + salto
+				linea2 += dato.listatiendas.GetArray()[i].Nombre + "\"]" + dato.listatiendas.GetArray()[i].identi + salto
 				arreglo2 += linea2
 
 			}
 
-			linea3 = dato.Indice + cali + dato.Categoria + " -> " + dato.listatiendas.cabeza.store.Nombre + salto
+			linea3 = dato.identi + " -> " + dato.listatiendas.cabeza.store.identi + salto
 			cabezas += linea3
 			conexion += dato.listatiendas.conexiones()
 

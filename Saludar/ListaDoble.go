@@ -152,8 +152,8 @@ func (this *ListaDoble) conexiones() string {
 	salida := ""
 	for aux != nil {
 		if aux.next != nil {
-			salida += aux.store.Nombre + " -> " + aux.next.store.Nombre + "\n"
-			salida += aux.next.store.Nombre + " -> " + aux.store.Nombre + "\n"
+			salida += aux.store.identi + " -> " + aux.next.store.identi + "\n"
+			salida += aux.next.store.identi + " -> " + aux.store.identi + "\n"
 
 		}
 		aux = aux.next
