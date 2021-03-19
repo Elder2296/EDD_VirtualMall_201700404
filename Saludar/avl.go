@@ -119,7 +119,7 @@ func (avl *AVL) Print() {
 func inOrden(temp *nodoarbol) {
 	if temp != nil {
 		inOrden(temp.izq)
-		fmt.Println("Codigo: ", temp.producto.Codigo, " Nombre: ", temp.producto.Nombre, " stock: ", temp.producto.Nombre)
+		fmt.Println("Codigo: ", temp.producto.Codigo, " Nombre: ", temp.producto.Nombre, " stock: ", temp.producto.Cantidad)
 		inOrden(temp.der)
 	}
 }

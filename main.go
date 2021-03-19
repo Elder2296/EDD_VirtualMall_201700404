@@ -137,12 +137,12 @@ func main() {
 	producto2 := saludar.Producto{"s7", 1237, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
 	producto3 := saludar.Producto{"s6", 1236, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
 	producto4 := saludar.Producto{"s10", 1227, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
-
+	producto5 := saludar.Producto{"s10", 1227, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
 	miavl.Insertar(producto)
 	miavl.Insertar(producto2)
 	miavl.Insertar(producto3)
 	miavl.Insertar(producto4)
-
+	miavl.Insertar(producto5)
 	miavl.Print()
 
 }
