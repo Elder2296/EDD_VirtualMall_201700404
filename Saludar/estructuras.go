@@ -30,6 +30,7 @@ type Casilla struct {
 	Categoria    string `json:Categoria`
 	Calificacion int    `json:Calificacion`
 	listatiendas ListaDoble
+	identi       string
 }
 
 /*

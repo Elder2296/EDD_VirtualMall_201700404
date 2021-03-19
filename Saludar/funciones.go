@@ -21,6 +21,8 @@ func WorkData(datos *Sobre) {
 	ncol := len(datos.Datos[0].Departamentos)
 	tam := nfil * ncol * 5
 
+	cont := 1
+
 	Celdas := make([]Casilla, tam)
 
 	for i := 0; i < nfil; i++ {
@@ -28,9 +30,12 @@ func WorkData(datos *Sobre) {
 		for j := 0; j < ncol; j++ {
 
 			for k := 0; k < 5; k++ {
+
 				Celdas[i+nfil*(j+ncol*k)].Indice = datos.Datos[i].Indice
 				Celdas[i+nfil*(j+ncol*k)].Categoria = datos.Datos[i].Departamentos[j].Nombre
 				Celdas[i+nfil*(j+ncol*k)].Calificacion = k + 1
+				Celdas[i+nfil*(j+ncol*k)].identi = "cas" + strconv.Itoa(cont)
+				fmt.Println(" num " + strconv.Itoa(cont))
 				lista := NewList()
 
 				for m := 0; m < len(datos.Datos[i].Departamentos[j].Tiendas); m++ {
@@ -42,6 +47,8 @@ func WorkData(datos *Sobre) {
 				}
 
 				Celdas[i+nfil*(j+ncol*k)].listatiendas = *lista
+
+				cont++
 
 			}
 
@@ -150,8 +157,7 @@ func CreateFile() {
 		linea := "node [shape=circle, style= filled, label= \""
 		cali := strconv.Itoa(dato.Calificacion)
 
-		linea += dato.Categoria + " " + dato.Indice + " " + cali + "\"]" + dato.Indice + cali + dato.Categoria + salto
-
+		linea += dato.Categoria + " " + dato.Indice + " " + cali + "\"]" + dato.identi + salto
 		if (c + 1) == len(*Cel) {
 			direc += dato.Indice + cali + dato.Categoria
 

@@ -118,7 +118,7 @@ func getArreglo(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	router := mux.NewRouter().StrictSlash(true)
-	// def of routes
+	// def of route
 	router.HandleFunc("/", rutainit).Methods("GET")
 
 	router.HandleFunc("/cargartienda", createData).Methods("POST")
