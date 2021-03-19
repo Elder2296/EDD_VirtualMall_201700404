@@ -117,8 +117,8 @@ func getArreglo(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	router := mux.NewRouter().StrictSlash(true)
-	// def of route
+	/*router := mux.NewRouter().StrictSlash(true)
+
 	router.HandleFunc("/", rutainit).Methods("GET")
 
 	router.HandleFunc("/cargartienda", createData).Methods("POST")
@@ -128,32 +128,22 @@ func main() {
 	router.HandleFunc("/guardar", saveFile).Methods("GET")
 	router.HandleFunc("/getArreglo", getArreglo).Methods("GET")
 
-	//router.HandleFunc("/getArreglo", getArray).Methods("GET")//REPORTE DE GRAPHVIZ
 
-	log.Fatal(http.ListenAndServe(":3000", router))
 
-	/*list := new(saludar.ListaDoble)
+	log.Fatal(http.ListenAndServe(":3000", router))*/
+	miavl := saludar.NewAVL()
 
-	store1 := new(saludar.Store)
-	store1.Nombre = "tienda1"
-	store2 := new(saludar.Store)
-	store2.Nombre = "tienda2"
-	//store3 := new(saludar.Store)
-	//store3.Nombre = "tienda3"
+	producto := saludar.Producto{"s8", 1234, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
+	producto2 := saludar.Producto{"s7", 1237, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
+	producto3 := saludar.Producto{"s6", 1236, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
+	producto4 := saludar.Producto{"s10", 1227, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
 
-	list.Insert(*store1)
-	list.Insert(*store2)
-	//list.Insert(*store3)
-	list.Print()
-	list.DeleteStore("tienda2")
-	fmt.Println()
-	list.Print()
+	miavl.Insertar(producto)
+	miavl.Insertar(producto2)
+	miavl.Insertar(producto3)
+	miavl.Insertar(producto4)
 
-	fmt.Println("")
-	list.DeleteStore("tienda1")
-	fmt.Println()
-	list.Print()*/
-	//createfile()
+	miavl.Print()
 
 }
 

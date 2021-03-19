@@ -34,6 +34,14 @@ type Casilla struct {
 	listatiendas ListaDoble
 	identi       string
 }
+type Producto struct {
+	Nombre      string  `json:Nombre`
+	Codigo      int     `json:Codigo`
+	Descripcion string  `json:Descripcion`
+	Precio      float64 `json:Precio`
+	Cantidad    int     `json:Cantidad`
+	Imagen      string  `json:Imagen`
+}
 
 /*
 var Cel *[]Casilla
