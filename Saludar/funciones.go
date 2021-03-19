@@ -24,7 +24,7 @@ func WorkData(datos *Sobre) {
 	cont := 1
 
 	Celdas := make([]Casilla, tam)
-	cont := 0
+
 	cont2 := 0
 
 	for i := 0; i < nfil; i++ {
@@ -37,11 +37,7 @@ func WorkData(datos *Sobre) {
 				Celdas[i+nfil*(j+ncol*k)].Categoria = datos.Datos[i].Departamentos[j].Nombre
 				Celdas[i+nfil*(j+ncol*k)].Calificacion = k + 1
 				Celdas[i+nfil*(j+ncol*k)].identi = "cas" + strconv.Itoa(cont)
-<<<<<<< HEAD
-				fmt.Println(" num " + strconv.Itoa(cont))
-=======
 
->>>>>>> f6995de0ce741cd6d06e7adebe8c0a13f56ee604
 				lista := NewList()
 
 				for m := 0; m < len(datos.Datos[i].Departamentos[j].Tiendas); m++ {
@@ -167,10 +163,7 @@ func CreateFile() {
 		cali := strconv.Itoa(dato.Calificacion)
 
 		linea += dato.Categoria + " " + dato.Indice + " " + cali + "\"]" + dato.identi + salto
-<<<<<<< HEAD
-=======
 
->>>>>>> f6995de0ce741cd6d06e7adebe8c0a13f56ee604
 		if (c + 1) == len(*Cel) {
 			direc += dato.identi
 

@@ -8,8 +8,9 @@ type Peticion struct {
 type Store struct {
 	Nombre       string `json:Nombre`
 	Descripcion  string `json:Descripcion`
-	Contacto     string `json.Contacto`
-	Calificacion int    `json.Calificacion`
+	Contacto     string `json:Contacto`
+	Calificacion int    `json:Calificacion`
+	Logo         string `json:Logo`
 	identi       string
 }
 
