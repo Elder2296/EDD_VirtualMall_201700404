@@ -14,6 +14,9 @@ func Save() *Sobre {
 	return bdata
 
 }
+func IngresarInventario(inventarios *){
+
+}
 
 func WorkData(datos *Sobre) {
 	bdata = datos

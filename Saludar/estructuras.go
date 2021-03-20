@@ -26,6 +26,15 @@ type Data struct {
 type Sobre struct {
 	Datos []Data `json: Datos`
 }
+type Inventario struct {
+	Tienda       string     `json:Tienda`
+	Departamento string     `json:Departamento`
+	Calificacion int        `json:Calificacion`
+	Productos    []Producto `json:Productos`
+}
+type Stock struct {
+	Inventarios []Inventario `json:Inventarios`
+}
 
 type Casilla struct {
 	Indice       string `json: Indice`
