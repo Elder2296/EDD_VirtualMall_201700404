@@ -116,11 +116,11 @@ func getArreglo(w http.ResponseWriter, r *http.Request) {
 }
 func cargarInventario(w http.ResponseWriter, r *http.Request) {
 	reqBody, _ := ioutil.ReadAll(r.Body)
-	fmt.Println(reqBody)
+
 	var data saludar.Stock
 	json.Unmarshal(reqBody, &data)
 	//fmt.Println(data)
-
+	saludar.IngresarInventario(&data)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(data)
@@ -142,8 +142,11 @@ func main() {
 	router.HandleFunc("/cargarInventario", cargarInventario).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":3000", router))
-	/*miavl := saludar.NewAVL()
 
+	/*var arbol saludar.AVL
+
+	miavl := saludar.NewAVL()
+	arbol = *miavl
 	producto := saludar.Producto{"s8", 1234, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
 	producto2 := saludar.Producto{"s7", 1237, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
 	producto3 := saludar.Producto{"s6", 1236, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}

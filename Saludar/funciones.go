@@ -14,7 +14,42 @@ func Save() *Sobre {
 	return bdata
 
 }
-func IngresarInventario(inventarios *){
+
+func IngresarInventario(stoke *Stock) {
+	/*ntiendas := len(stoke.Inventarios)
+	fmt.Println("Tiendas que seran afectadas: ", ntiendas)*/
+
+	Celdas2 := make([]Casilla, len(*Cel))
+	c := 0
+	ninven := 0
+	/*for _, elemento := range stoke.Inventarios {
+		fmt.Println("Tienda: ", elemento.Tienda, " Departamento: ", elemento.Departamento, " Calificacion: ", elemento.Calificacion)
+
+	}*/
+
+	for _, dato := range *Cel {
+
+		for _, elemento := range stoke.Inventarios {
+			if dato.Categoria == elemento.Departamento && dato.Calificacion == elemento.Calificacion && dato.listatiendas.Encontro(elemento.Tienda) != 0 {
+
+				//dato.listatiendas.GetTienda(elemento.Tienda).Arbol.Print()
+				for _, objeto := range elemento.Productos {
+					dato.listatiendas.GetTienda(elemento.Tienda).Arbol.Insertar(objeto)
+					ninven++
+				}
+
+				/*dato.listatiendas.GetTienda(elemento.Tienda).Arbol.Print()
+				fmt.Println("------------------------------")**/
+			}
+
+		}
+		Celdas2[c] = dato
+		c++
+
+	}
+	Cel = &Celdas2
+
+	fmt.Println("Se hicieorn  ", ninven, " inserciones en los arboles")
 
 }
 
@@ -47,6 +82,11 @@ func WorkData(datos *Sobre) {
 
 					if Celdas[i+nfil*(j+ncol*k)].Calificacion == datos.Datos[i].Departamentos[j].Tiendas[m].Calificacion {
 						datos.Datos[i].Departamentos[j].Tiendas[m].identi = "tie" + strconv.Itoa(cont2)
+						datos.Datos[i].Departamentos[j].Tiendas[m].Arbol = NewAVL()
+						//fmt.Println("----------------------------------------------")
+						//producto := Producto{"s8", 1234, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
+						//datos.Datos[i].Departamentos[j].Tiendas[m].Arbol.Insertar(producto)
+						//datos.Datos[i].Departamentos[j].Tiendas[m].Arbol.Print()
 						lista.Insert(datos.Datos[i].Departamentos[j].Tiendas[m])
 						cont2++
 					}
@@ -76,13 +116,16 @@ func GetData(peticion Peticion) Store {
 
 		if dato.Categoria == peticion.Departamento && dato.Calificacion == peticion.Calificacion {
 			if dato.listatiendas.Encontro(peticion.Nombre) == 1 {
+				//dato.listatiendas.GetTienda(peticion.Nombre).Arbol.Print()
 				Tienda = dato.listatiendas.GetTienda(peticion.Nombre)
+				Tienda.Arbol = dato.listatiendas.GetTienda(peticion.Nombre).Arbol
+
 				break
 			}
 		}
 
 	}
-
+	Tienda.Arbol.Print()
 	return Tienda
 
 }

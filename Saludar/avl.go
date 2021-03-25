@@ -18,6 +18,10 @@ type AVL struct {
 	raiz *nodoarbol
 }
 
+func (avl *AVL) Init() {
+	avl.raiz = nil
+}
+
 func NewAVL() *AVL {
 	return &AVL{nil}
 }
@@ -66,6 +70,7 @@ func (avl *AVL) Insertar(producto Producto) {
 func insert(producto Producto, root **nodoarbol) {
 	if (*root) == nil {
 		*root = newNodo(producto)
+		//fmt.Println("Agrego algo")
 		return
 	}
 	if producto.Codigo < (*root).producto.Codigo {
@@ -113,6 +118,10 @@ func search(producto Producto, root *nodoarbol) *nodoarbol {
 }
 
 func (avl *AVL) Print() {
+	if avl.raiz == nil {
+		fmt.Println("La raiz ha sido inicializada")
+
+	}
 	inOrden(avl.raiz)
 }
 

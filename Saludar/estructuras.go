@@ -11,6 +11,7 @@ type Store struct {
 	Contacto     string `json:Contacto`
 	Calificacion int    `json:Calificacion`
 	Logo         string `json:Logo`
+	Arbol        *AVL
 	identi       string
 }
 
