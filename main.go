@@ -126,6 +126,9 @@ func cargarInventario(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(data)
 
 }
+func getTiendas(w http.ResponseWriter, r *http.Request) {
+
+}
 
 func main() {
 
@@ -140,6 +143,7 @@ func main() {
 	router.HandleFunc("/guardar", saveFile).Methods("GET")
 	router.HandleFunc("/getArreglo", getArreglo).Methods("GET")
 	router.HandleFunc("/cargarInventario", cargarInventario).Methods("POST")
+	router.HandleFunc("/Tiendas", getTiendas).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":3000", router))
 

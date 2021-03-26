@@ -1,0 +1,13 @@
+.tiendas{
+    background: #ffb347;
+
+    background: -webkit-linear-gradient(to right, #ffcc33,#ffb347);
+
+    background: linear-gradient(to right,#ffcc33,#ffb347);
+
+    height:100%;
+}
+.carga{
+    background: black;
+    height:100vh;
+}

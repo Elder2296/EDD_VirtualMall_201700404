@@ -12,7 +12,7 @@ type Store struct {
 	Calificacion int    `json:Calificacion`
 	Logo         string `json:Logo`
 	Arbol        *AVL
-	identi       string
+	identi       string `json:id`
 }
 
 type Departament struct {
