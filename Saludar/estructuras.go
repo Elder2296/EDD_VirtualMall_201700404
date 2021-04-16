@@ -5,14 +5,17 @@ type Peticion struct {
 	Nombre       string `json:Nombre`
 	Calificacion int    `json:Calificacion`
 }
+type Peticionproductos struct {
+	Id string `json:Id`
+}
 type Store struct {
 	Nombre       string `json:Nombre`
 	Descripcion  string `json:Descripcion`
 	Contacto     string `json:Contacto`
 	Calificacion int    `json:Calificacion`
 	Logo         string `json:Logo`
+	Id           string `json:Id`
 	Arbol        *AVL
-	identi       string `json:id`
 }
 
 type Departament struct {
@@ -27,6 +30,7 @@ type Data struct {
 type Sobre struct {
 	Datos []Data `json: Datos`
 }
+
 type Inventario struct {
 	Tienda       string     `json:Tienda`
 	Departamento string     `json:Departamento`
@@ -39,7 +43,7 @@ type Stock struct {
 
 type Casilla struct {
 	Indice       string `json: Indice`
-	Categoria    string `json:Categoria`
+	Departamento string `json:Departamento`
 	Calificacion int    `json:Calificacion`
 	listatiendas ListaDoble
 	identi       string

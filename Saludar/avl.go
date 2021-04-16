@@ -15,7 +15,8 @@ func newNodo(producto Producto) *nodoarbol {
 }
 
 type AVL struct {
-	raiz *nodoarbol
+	raiz  *nodoarbol
+	lista ListaSimple
 }
 
 func (avl *AVL) Init() {
@@ -23,7 +24,7 @@ func (avl *AVL) Init() {
 }
 
 func NewAVL() *AVL {
-	return &AVL{nil}
+	return &AVL{nil, *NewListaSimple()}
 }
 
 func max(val1 int, val2 int) int {
@@ -65,6 +66,7 @@ func rotacionDobleDerecha(temp **nodoarbol) {
 }
 func (avl *AVL) Insertar(producto Producto) {
 	insert(producto, &avl.raiz)
+	avl.lista.Insertar(producto)
 }
 
 func insert(producto Producto, root **nodoarbol) {
@@ -123,9 +125,11 @@ func (avl *AVL) Print() {
 
 	}
 	inOrden(avl.raiz)
+
 }
 
 func inOrden(temp *nodoarbol) {
+
 	if temp != nil {
 		inOrden(temp.izq)
 		fmt.Println("Codigo: ", temp.producto.Codigo, " Nombre: ", temp.producto.Nombre, " stock: ", temp.producto.Cantidad)

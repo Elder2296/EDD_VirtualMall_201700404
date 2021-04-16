@@ -9,6 +9,7 @@ import (
 
 var Cel *[]Casilla
 var bdata *Sobre
+var todaslastiendas *ListaDoble
 
 func Save() *Sobre {
 	return bdata
@@ -30,8 +31,9 @@ func IngresarInventario(stoke *Stock) {
 	for _, dato := range *Cel {
 
 		for _, elemento := range stoke.Inventarios {
-			if dato.Categoria == elemento.Departamento && dato.Calificacion == elemento.Calificacion && dato.listatiendas.Encontro(elemento.Tienda) != 0 {
-
+			//fmt.Println("Departamento", dato.Departamento, " Calificacion ", dato.Calificacion)
+			if dato.Departamento == elemento.Departamento && dato.Calificacion == elemento.Calificacion && dato.listatiendas.Encontro(elemento.Tienda) != 0 {
+				//fmt.Println("COINCIDIO")
 				//dato.listatiendas.GetTienda(elemento.Tienda).Arbol.Print()
 				for _, objeto := range elemento.Productos {
 					dato.listatiendas.GetTienda(elemento.Tienda).Arbol.Insertar(objeto)
@@ -58,7 +60,7 @@ func WorkData(datos *Sobre) {
 	nfil := len(datos.Datos)
 	ncol := len(datos.Datos[0].Departamentos)
 	tam := nfil * ncol * 5
-
+	todaslastiendas = NewList()
 	cont := 1
 
 	Celdas := make([]Casilla, tam)
@@ -72,7 +74,7 @@ func WorkData(datos *Sobre) {
 			for k := 0; k < 5; k++ {
 
 				Celdas[i+nfil*(j+ncol*k)].Indice = datos.Datos[i].Indice
-				Celdas[i+nfil*(j+ncol*k)].Categoria = datos.Datos[i].Departamentos[j].Nombre
+				Celdas[i+nfil*(j+ncol*k)].Departamento = datos.Datos[i].Departamentos[j].Nombre
 				Celdas[i+nfil*(j+ncol*k)].Calificacion = k + 1
 				Celdas[i+nfil*(j+ncol*k)].identi = "cas" + strconv.Itoa(cont)
 
@@ -81,12 +83,13 @@ func WorkData(datos *Sobre) {
 				for m := 0; m < len(datos.Datos[i].Departamentos[j].Tiendas); m++ {
 
 					if Celdas[i+nfil*(j+ncol*k)].Calificacion == datos.Datos[i].Departamentos[j].Tiendas[m].Calificacion {
-						datos.Datos[i].Departamentos[j].Tiendas[m].identi = "tie" + strconv.Itoa(cont2)
+						datos.Datos[i].Departamentos[j].Tiendas[m].Id = "tie" + strconv.Itoa(cont2)
 						datos.Datos[i].Departamentos[j].Tiendas[m].Arbol = NewAVL()
 						//fmt.Println("----------------------------------------------")
 						//producto := Producto{"s8", 1234, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
 						//datos.Datos[i].Departamentos[j].Tiendas[m].Arbol.Insertar(producto)
 						//datos.Datos[i].Departamentos[j].Tiendas[m].Arbol.Print()
+						todaslastiendas.Insert(datos.Datos[i].Departamentos[j].Tiendas[m])
 						lista.Insert(datos.Datos[i].Departamentos[j].Tiendas[m])
 						cont2++
 					}
@@ -111,10 +114,10 @@ func WorkData(datos *Sobre) {
 var Tienda Store
 
 func GetData(peticion Peticion) Store {
-
+	//fmt.Println("ENTRO A LA PETICION DE LA TIENDA")
 	for _, dato := range *Cel {
 
-		if dato.Categoria == peticion.Departamento && dato.Calificacion == peticion.Calificacion {
+		if dato.Departamento == peticion.Departamento && dato.Calificacion == peticion.Calificacion {
 			if dato.listatiendas.Encontro(peticion.Nombre) == 1 {
 				//dato.listatiendas.GetTienda(peticion.Nombre).Arbol.Print()
 				Tienda = dato.listatiendas.GetTienda(peticion.Nombre)
@@ -126,6 +129,7 @@ func GetData(peticion Peticion) Store {
 
 	}
 	Tienda.Arbol.Print()
+	Tienda.Arbol.lista.Imprimir()
 	return Tienda
 
 }
@@ -172,7 +176,7 @@ func DeleteStore(peticion Peticion) int {
 
 	for _, dato := range *Cel {
 
-		if dato.Categoria == peticion.Departamento && dato.Calificacion == peticion.Calificacion && dato.listatiendas.size != 0 {
+		if dato.Departamento == peticion.Departamento && dato.Calificacion == peticion.Calificacion && dato.listatiendas.size != 0 {
 
 			if dato.listatiendas.EncontrarTienda(peticion.Nombre) == 1 {
 				t = dato.listatiendas.DeleteStore(peticion.Nombre)
@@ -208,7 +212,7 @@ func CreateFile() {
 		linea := "node [shape=circle, style= filled, label= \""
 		cali := strconv.Itoa(dato.Calificacion)
 
-		linea += dato.Categoria + " " + dato.Indice + " " + cali + "\"]" + dato.identi + salto
+		linea += dato.Departamento + " " + dato.Indice + " " + cali + "\"]" + dato.identi + salto
 
 		if (c + 1) == len(*Cel) {
 			direc += dato.identi
@@ -222,12 +226,12 @@ func CreateFile() {
 
 			for i := 0; i < len(dato.listatiendas.GetArray()); i++ {
 				linea2 := "node [shape=box, style= filled, label= \""
-				linea2 += dato.listatiendas.GetArray()[i].Nombre + "\"]" + dato.listatiendas.GetArray()[i].identi + salto
+				linea2 += dato.listatiendas.GetArray()[i].Nombre + "\"]" + dato.listatiendas.GetArray()[i].Id + salto
 				arreglo2 += linea2
 
 			}
 
-			linea3 = dato.identi + " -> " + dato.listatiendas.cabeza.store.identi + salto
+			linea3 = dato.identi + " -> " + dato.listatiendas.cabeza.store.Id + salto
 			cabezas += linea3
 			conexion += dato.listatiendas.conexiones()
 
@@ -251,6 +255,11 @@ func CreateFile() {
 		fmt.Println("archivo creado con exito!!!")
 
 	}
+
+}
+func GetT_tiendas() []Store {
+
+	return (*todaslastiendas).GetArray()
 
 }
 

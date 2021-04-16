@@ -10,6 +10,7 @@ import (
 
 	saludar "github.com/Elder2296/EDD_VirtualMall_201700404/Saludar"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	// para crear un enrutador
 )
 
@@ -128,10 +129,43 @@ func cargarInventario(w http.ResponseWriter, r *http.Request) {
 }
 func getTiendas(w http.ResponseWriter, r *http.Request) {
 
+	tiendas := saludar.GetT_tiendas()
+	//fmt.Println(tiendas)
+
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(tiendas)
+
 }
+func verProductos(w http.ResponseWriter, r *http.Request) {
 
+	reqBody, _ := ioutil.ReadAll(r.Body)
+	//fmt.Println("VAMOS A VER ", reqBody)
+	var peti saludar.Peticionproductos
+
+	json.Unmarshal(reqBody, &peti)
+
+	//fmt.Println("Id: ", peti)
+	productos := saludar.GetProducts(peti)
+	//fmt.Println("Entro a esta peticion")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(productos)
+
+}
+func hacerpedido(w http.ResponseWriter, r *http.Request) {
+	reqBody, _ := ioutil.ReadAll(r.Body)
+
+	var pedido saludar.Pedido
+
+	json.Unmarshal(reqBody, &pedido)
+
+	fmt.Println("Entro a hacer el pedido")
+	fmt.Println(pedido)
+
+	fmt.Println(reqBody)
+
+}
 func main() {
-
+	fmt.Println("Entro al sistema")
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/", rutainit).Methods("GET")
@@ -144,8 +178,29 @@ func main() {
 	router.HandleFunc("/getArreglo", getArreglo).Methods("GET")
 	router.HandleFunc("/cargarInventario", cargarInventario).Methods("POST")
 	router.HandleFunc("/Tiendas", getTiendas).Methods("GET")
+	router.HandleFunc("/Verproductos", verProductos).Methods("POST")
+	router.HandleFunc("/HacerPedido", hacerpedido).Methods("POST")
+	newcors := cors.New(cors.Options{AllowedOrigins: []string{"http://localhost:8001"},
+		AllowCredentials: true})
 
-	log.Fatal(http.ListenAndServe(":3000", router))
+	handler := newcors.Handler(router)
+	log.Fatal(http.ListenAndServe(":3000", handler))
+
+	/*mylista := saludar.NewListaSimple()
+
+	producto := saludar.Producto{"s8", 1234, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
+	producto2 := saludar.Producto{"s7", 1237, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
+	producto3 := saludar.Producto{"s6", 1236, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
+	producto4 := saludar.Producto{"s10", 1227, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
+	producto5 := saludar.Producto{"s10", 1227, "El smartphone del futuro", 2500.00, 25, "https://i.blogs.es/7a4489/galaxy-s8-4/450_1000.jpg"}
+
+	mylista.Insertar(producto)
+	mylista.Insertar(producto2)
+	mylista.Insertar(producto3)
+	mylista.Insertar(producto4)
+	mylista.Insertar(producto5)
+	mylista.Imprimir()
+	*/
 
 	/*var arbol saludar.AVL
 

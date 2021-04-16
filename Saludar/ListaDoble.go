@@ -61,6 +61,34 @@ func (this *ListaDoble) Encontro(name string) int { // solo dice si hay una coin
 	}
 	return Encontro
 }
+func (this *ListaDoble) GetStore_by_Id(id string) int {
+	aux := this.cabeza
+	encontro := 0
+	for aux != nil {
+		if aux.store.Id == id {
+			encontro = 1
+			break
+
+		} else {
+			aux = aux.next
+		}
+	}
+	return encontro
+}
+func (this *ListaDoble) getStore_by_Id(id string) Store {
+	aux := this.cabeza
+
+	for aux != nil {
+		if aux.store.Id == id {
+
+			break
+
+		} else {
+			aux = aux.next
+		}
+	}
+	return aux.store
+}
 
 func (this *ListaDoble) GetTienda(name string) Store {
 	aux := this.cabeza
@@ -152,8 +180,8 @@ func (this *ListaDoble) conexiones() string {
 	salida := ""
 	for aux != nil {
 		if aux.next != nil {
-			salida += aux.store.identi + " -> " + aux.next.store.identi + "\n"
-			salida += aux.next.store.identi + " -> " + aux.store.identi + "\n"
+			salida += aux.store.Id + " -> " + aux.next.store.Id + "\n"
+			salida += aux.next.store.Id + " -> " + aux.store.Id + "\n"
 
 		}
 		aux = aux.next
