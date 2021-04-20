@@ -8,6 +8,7 @@ import Carrito from './Components/Carrito'
 import Pedidos from './Components/Pedidos'
 import Login from './Components/Login'
 import Registro from './Components/Register'
+import Reportes from './Components/Reportes'
 function App() {
   localStorage.clear();
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route  path="/Pedidos"  ><Pedidos/></Route>
         <Route  path="/Login"><Login></Login></Route>
         <Route  path="/Registro"><Registro></Registro></Route>
+        <Route  path="/Reportes"><Reportes></Reportes></Route>
 
       
 

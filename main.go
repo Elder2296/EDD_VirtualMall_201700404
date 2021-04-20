@@ -164,6 +164,50 @@ func hacerpedido(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(reqBody)
 
 }
+func cargarUsuarios(w http.ResponseWriter, r *http.Request) {
+	reqBody, _ := ioutil.ReadAll(r.Body)
+	var usuarios saludar.Usuarios
+
+	json.Unmarshal(reqBody, &usuarios)
+
+	saludar.InitUsers(&usuarios)
+
+}
+func validar(w http.ResponseWriter, r *http.Request) {
+	reqBody, _ := ioutil.ReadAll(r.Body)
+
+	var init saludar.Init
+	fmt.Println("ascii:  ", reqBody)
+	fmt.Println("Paso aca")
+	json.Unmarshal(reqBody, &init)
+
+	info := saludar.Login(&init)
+
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(info)
+
+}
+func registrar(w http.ResponseWriter, r *http.Request) {
+	reqBody, _ := ioutil.ReadAll(r.Body)
+
+	var usuario saludar.Usuario
+
+	json.Unmarshal(reqBody, &usuario)
+	fmt.Println("usuario: ", usuario.Nombre)
+	saludar.InsertnewUser(usuario)
+
+}
+func cargarGrafo(w http.ResponseWriter, r *http.Request) {
+	reqBody, _ := ioutil.ReadAll(r.Body)
+
+	var grafo saludar.Grafo
+	fmt.Println("Entro")
+	json.Unmarshal(reqBody, &grafo)
+
+	saludar.UseGrafo(&grafo)
+
+}
+
 func main() {
 	fmt.Println("Entro al sistema")
 	router := mux.NewRouter().StrictSlash(true)
@@ -180,6 +224,11 @@ func main() {
 	router.HandleFunc("/Tiendas", getTiendas).Methods("GET")
 	router.HandleFunc("/Verproductos", verProductos).Methods("POST")
 	router.HandleFunc("/HacerPedido", hacerpedido).Methods("POST")
+	router.HandleFunc("/cargarUsuarios", cargarUsuarios).Methods("POST")
+	router.HandleFunc("/Validar", validar).Methods("POST")
+	router.HandleFunc("/Registrar", registrar).Methods("POST")
+	router.HandleFunc("/Grafo", cargarGrafo).Methods("POST")
+
 	newcors := cors.New(cors.Options{AllowedOrigins: []string{"http://localhost:8001"},
 		AllowCredentials: true})
 

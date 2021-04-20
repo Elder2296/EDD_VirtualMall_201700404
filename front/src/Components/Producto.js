@@ -40,29 +40,54 @@ function Producto( ) {
         getProductos()
 
     })
-    if(loading===false){
-        return (
-            <div className="ui segment carga">
-                <div className="ui active dimmer ">
-                    <div className="ui text loader">
 
-                    </div>
+    var user=localStorage.getItem('Usuario')
 
-                </div>
-
-            </div>
-
-        )   
-
-    }else{
-        return (
-            <div className="tiendas">
-                <br></br>
-                <Albun productos={productos} Tienda={id}></Albun>
+    if(user==null || user==  undefined){
+        return(
+            <div>
+               <h1>No se ha iniciado Sesion</h1> 
             </div>
         )
 
+    }else{
+        user = JSON.parse(user)
+
+        if(user.Usuario=='Usuario'){
+            if(loading===false){
+                return (
+                    <div className="ui segment carga">
+                        <div className="ui active dimmer ">
+                            <div className="ui text loader">
+        
+                            </div>
+        
+                        </div>
+        
+                    </div>
+        
+                )   
+        
+            }else{
+                return (
+                    <div className="tiendas">
+                        <br></br>
+                        <Albun productos={productos} Tienda={id}></Albun>
+                    </div>
+                )
+        
+            }
+        }else{
+            return(
+                <div>
+                   <h1>No tienes acceso</h1> 
+                </div>
+                )
+        }
     }
+
+
+    
     
 }
 
